@@ -3,19 +3,26 @@ pipeline {
 
     stages {
         stage('SETUP') {
-            steps {
-                script {
-                    jutils = load "C:/Users/Fatih.Zorlu/IdeaProjects/pocjenkinspipeline/src/main/poc.groovy"
-                }
-            }
+                    def temp = getCurrentDirectory()
+                    jutils = load "${temp}/src/helpers.groovy"
         }
 
         stage('Get Token') {
-            steps {
-            script {
                     jutils.xrayapi()
-                    }
             }
         }
+    }
+}
+
+def getCurrentDirectory() {
+    def current = "${env.WORKSPACE}@script"
+    def std = powershell returnStdout: true, script: """(Get-ChildItem -Path $current -Recurse -Filter "*tmp").FullName"""
+    temp = std.trim().replace("\n", "")
+    echo "modified:${temp}"
+    def modified = temp.replace('@tmp', '').trim()
+    if (modified.length() > 0) {
+        return modified
+    } else {
+        return current
     }
 }

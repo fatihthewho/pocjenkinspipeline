@@ -3,15 +3,23 @@ pipeline {
 
     stages {
         stage('SETUP') {
+            steps {
+                script {
                     def temp = getCurrentDirectory()
                     jutils = load "${temp}/src/helpers.groovy"
+                }
+            }
         }
 
         stage('Get Token') {
+            steps {
+                script {
                     jutils.xrayapi()
+                }
             }
         }
     }
+}
 
 
 def getCurrentDirectory() {

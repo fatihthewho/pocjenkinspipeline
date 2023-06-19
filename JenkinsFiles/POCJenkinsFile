@@ -12,9 +12,9 @@ pipeline {
 
         stage('Get Token') {
             steps {
-                script {
-                    xrayapi()
-                }
+
+                    jutils.xrayapi()
+
             }
         }
     }

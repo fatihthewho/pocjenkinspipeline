@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('SETUP') {
+
+        jutils = load "C:\Users\Fatih.Zorlu\IdeaProjects\pocjenkinspipeline\src\main\poc.groovy"
+
+        }
+        stage('Get Token') {
+        xrayapi()
+    }
+}
+}
